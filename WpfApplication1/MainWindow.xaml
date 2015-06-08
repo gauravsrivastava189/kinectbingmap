@@ -1,0 +1,46 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="900" Width="900" Closing="WindowClosing" Loaded="WindowLoaded" >
+    <Grid>
+        <m:Map Name="myMap" 
+               Center="-1.968404, 30.036240" 
+               ZoomLevel="2"
+               CredentialsProvider="Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3"
+               Mode="Road" Margin="0,0,10,-19" >
+            <TextBox x:Name="input" HorizontalAlignment="Left" Height="38" TextWrapping="Wrap" Text="jaipur" VerticalAlignment="Top" Width="150" Margin="108,3,0,0" RenderTransformOrigin="0.5,0.5">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.879"/>
+                        <RotateTransform Angle="0.557"/>
+                        <TranslateTransform X="0.028" Y="-2.875"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
+            <Button x:Name="getlocation" Content="Get Location" HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="106" FontWeight="Bold" Click="getlocation_Click" RenderTransformOrigin="1.642,0.428"/>
+            <TextBox x:Name="location" HorizontalAlignment="Left" Height="81" TextWrapping="Wrap" Text="location" VerticalAlignment="Top" Width="134" Margin="258,0,0,0"/>
+            <Button x:Name="mode" Content="Aerial/Road Mode" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="106" RenderTransformOrigin="0.617,1.657" Margin="0,38,0,0" Click="mode_Click" FontWeight="Bold"/>
+            <Button x:Name="zoomup" Content="zoomup" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="105" Margin="0,75,0,0" FontWeight="Bold" Click="zoomup_Click"/>
+            <Button x:Name="zoomdown" Content="zoomdown" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="105" Margin="0,109,0,0" FontWeight="Bold" Click="zoomdown_Click"/>
+            <TextBox x:Name="input_des" HorizontalAlignment="Left" Height="38" TextWrapping="Wrap" Text="delhi" VerticalAlignment="Top" Width="150" Margin="107,42,0,0" RenderTransformOrigin="0.5,0.5" SpellCheck.IsEnabled="True">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.879"/>
+                        <RotateTransform Angle="0.557"/>
+                        <TranslateTransform X="0.028" Y="-2.875"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
+            <TextBox x:Name="test" HorizontalAlignment="Left" Height="81" TextWrapping="Wrap" Text="just to check " VerticalAlignment="Top" Width="174" Margin="393,0,0,0"/>
+            <Button x:Name="route" Content="show route" HorizontalAlignment="Left" Height="39" VerticalAlignment="Top" Width="107" Margin="0,143,0,0" FontWeight="Bold" Click="route_Click"/>
+            <Label x:Name="labelResults" Content="Label" HorizontalAlignment="Left" Height="800" VerticalAlignment="Bottom" Width="600" Margin="107,0,0,40" RenderTransformOrigin="0.576,0.388" FontSize="11" FontFamily="Segoe UI Black" Visibility="Hidden"/>
+            <Label x:Name="labeldistance" Content="Label" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="149" Margin="600,9,0,0" FontWeight="Bold" Visibility="Hidden" Background="Yellow" />
+        </m:Map>
+
+
+    </Grid>
+
+</Window>

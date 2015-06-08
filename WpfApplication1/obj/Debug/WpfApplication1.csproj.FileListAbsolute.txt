@@ -1,0 +1,84 @@
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.csprojResolveAssemblyReference.cache
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\MainWindow.baml
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\MainWindow.g.cs
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\App.g.cs
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.g.resources
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.exe
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.pdb
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.exe
+c:\users\mtcind\documents\visual studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\MainWindow.baml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\MainWindow.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\App.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.g.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Kinect.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Kinect.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\Microsoft.Kinect.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\Microsoft.Kinect.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\MainWindow.baml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\MainWindow.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\App.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.g.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v2\WpfApplication1\obj\Debug\WpfApplication1.csprojResolveAssemblyReference.cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Kinect.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Kinect.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\MainWindow.baml
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\MainWindow.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\App.g.cs
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.g.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\gaurav\2nd week\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.csprojResolveAssemblyReference.cache
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Kinect.dll
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Kinect.xml
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\MainWindow.baml
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\MainWindow.g.cs
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\App.g.cs
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.g.resources
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.pdb
