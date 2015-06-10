@@ -55,7 +55,7 @@ namespace WpfApplication1
 
         SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
 // Key for bing maps 
-        string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3 ";
+        string key = "bing map key ";
         public MainWindow()
         {
             
@@ -809,7 +809,7 @@ namespace WpfApplication1
                {
                    //Create the Request URL for the routing service
                    Uri routeRequest = new Uri(string.Format("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0={0}&wp.1={1}&rpo=Points&key={2}",
-                       from, to, "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3"));
+                       from, to, "bing map key"));
 
                    //Make a request and get the response 
                    GetResponse(routeRequest, (x) =>

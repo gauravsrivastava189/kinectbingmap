@@ -13,7 +13,7 @@
                 <m:Map Name="myMap" 
                Center="-1.968404, 30.036240" 
                ZoomLevel="2"
-               CredentialsProvider="Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3"
+               CredentialsProvider="key"
                Mode="Road" >
                     <TextBox x:Name="input" HorizontalAlignment="Left" Height="38" TextWrapping="Wrap" Text="jaipur" VerticalAlignment="Top" Width="150" Margin="108,3,0,0" RenderTransformOrigin="0.5,0.5">
                         <TextBox.RenderTransform>
