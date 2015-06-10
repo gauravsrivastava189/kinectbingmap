@@ -26,7 +26,6 @@ using Microsoft.Maps.MapControl.WPF;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-// to add route 
 using BingMapsRESTService;
 using BingMapsRESTService.Common.JSON;
 using System.ServiceModel.Web;
@@ -39,64 +38,31 @@ using System.Runtime.Serialization.Json;
 
 namespace WpfApplication1
 {
-   // using System;
-   // using System.Collections.Generic;
-    //using System.ComponentModel;
-   // using System.IO;
+  
     using System.Runtime.InteropServices;
-//using System.Text;
-   // using System.Windows;
-   // using System.Windows.Documents;
-   // using System.Windows.Media;
 
    using Microsoft.Speech.AudioFormat;
      using Microsoft.Speech.Recognition;
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-
-
+   
 
     public partial class MainWindow : Window
     {
         IList<Body> _bodies;
-
         MultiSourceFrameReader _reader;
-
         private KinectSensor kinectSensor = null;
-
-        /// <summary>
-        /// Stream for 32b-16b conversion.
-        /// </summary>
-      
-      private KinectAudioStream convertStream = null;
-
-        /// <summary>
-        /// Speech recognition engine using audio data from Kinect.
-        /// </summary>
+        private KinectAudioStream convertStream = null;
         private SpeechRecognitionEngine speechEngine = null;
-
-
-        /// <summary>
-        /// List of all UI span elements used to select recognized text.
-        /// </summary>
-    //    private List<Span> recognitionSpans;
 
         SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
 // Key for bing maps 
-        string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3";
+        string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3 ";
         public MainWindow()
         {
             
             InitializeComponent();
              myMap.Focus();
            KinectRegion.SetKinectRegion(this, kinectRegion);
-
-           // App app = ((App)Application.Current);
-            //app.KinectRegion = kinectRegion;
-
-           //   Use the default sensor
-            this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
+           this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
 
 
         }
@@ -109,17 +75,9 @@ namespace WpfApplication1
             IEnumerable<RecognizerInfo> recognizers;
            
 
-            // This is required to catch the case when an expected recognizer is not installed.
-            // By default - the x86 Speech Runtime is always expected. 
             try
-            {
-              
-                recognizers = SpeechRecognitionEngine.InstalledRecognizers();
-                
-                // here is the problem 
-                
-               
-                
+            {              
+                recognizers = SpeechRecognitionEngine.InstalledRecognizers();                                                          
             }
             catch (COMException)
             {
@@ -130,15 +88,12 @@ namespace WpfApplication1
 
             foreach (RecognizerInfo recognizer in recognizers)
             {
-              // MessageBox.Show(" recognizer ");
-
+       
                 string value;
                 recognizer.AdditionalInfo.TryGetValue("Kinect", out value);
                 if ("True".Equals(value, StringComparison.OrdinalIgnoreCase) &&
                     "en-US".Equals(recognizer.Culture.Name, StringComparison.OrdinalIgnoreCase))
-                {
-                   // MessageBox.Show(" working ");
-
+                {           
                     return recognizer;
                 }
                 
@@ -182,35 +137,20 @@ namespace WpfApplication1
                 this.speechEngine = new SpeechRecognitionEngine(ri.Id);
 
                 var directions = new Choices();
-                /*  directions.Add("india");
-                  directions.Add("jaipur");               
-                  directions.Add("delhi");
-                  directions.Add("new york");
-                  directions.Add("himalayas");
-                  directions.Add("microsoft");
-                  directions.Add("shimla");
-                  directions.Add("london");
-                  directions.Add("washington");
-                  directions.Add("google");
-                  directions.Add("zoom");
-                  directions.Add("back");
-                  directions.Add("change mode");
-                  directions.Add("hide direction");
-                  directions.Add("find distance");*/
+           
 
                 StreamReader reader = new StreamReader("C:\\Users\\mtcind\\Desktop\\gaurav\\2nd week\\WpfApplication1_v4\\WpfApplication1\\input.txt");
                 string line;
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    // Do something with the line.
+                 
                     string[] parts = line.Split('\n');
                     if (parts.Length == 1)
                     {
-                        // MessageBox.Show(parts.Length.ToString());
-                        //gb.Append(parts[0].ToString());
+
                         directions.Add(parts[0].ToString());
-                        //MessageBox.Show(parts[0].ToString());
+                 
 
                     }
                 }
@@ -260,21 +200,6 @@ namespace WpfApplication1
                 var g4 = new Grammar(gb4);
                 this.speechEngine.LoadGrammar(g4);
 
-                /* GrammarBuilder startStop = new GrammarBuilder();
-                 GrammarBuilder dictation = new GrammarBuilder();
-                 dictation.AppendDictation();
-
-                 startStop.Append(new SemanticResultKey("StartDictation", new SemanticResultValue("Start Dictation", true)));
-                 startStop.Append(new SemanticResultKey("DictationInput", dictation));
-                 startStop.Append(new SemanticResultKey("StopDictation", new SemanticResultValue("Stop Dictation", false)));
-                 Grammar grammar = new Grammar(startStop);
-                 grammar.Enabled = true;
-                 grammar.Name = " Free-Text Dictation ";
-                 this.speechEngine.LoadGrammar(grammar);  */
-
-
-                // this.speechEngine.LoadGrammar(new Grammar(new GrammarBuilder("exit")));
-                // this.speechEngine.LoadGrammar(new DictationGrammar());
 
 
                 speechSynthesizer.Speak("welcome to microsoft bing maps.");
@@ -283,15 +208,12 @@ namespace WpfApplication1
                 this.speechEngine.SpeechRecognized += this.SpeechRecognized;
                 this.speechEngine.SpeechRecognitionRejected += this.SpeechRejected;
 
-                this.speechEngine.SetInputToDefaultAudioDevice(); // set the input to the default audio device
+                this.speechEngine.SetInputToDefaultAudioDevice(); 
 
 
-                // let the convertStream know speech is going active
                 this.convertStream.SpeechActive = true;
 
-                // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
-                // This will prevent recognition accuracy from degrading over time.
-                ////speechEngine.UpdateRecognizerSetting("AdaptationOn", 0);
+
 
                 this.speechEngine.SetInputToAudioStream(
                     this.convertStream, new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
@@ -300,7 +222,7 @@ namespace WpfApplication1
             else
             {
                 test.AppendText("\n\nno speech recognizer ");
-                //this.statusBarText.Text = Properties.Resources.NoSpeechRecognizer;
+                
             }
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -315,7 +237,7 @@ namespace WpfApplication1
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
             }
 
-           // test.Text = myMap.Center.Latitude.ToString();
+       
         }
      
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -346,7 +268,7 @@ namespace WpfApplication1
                                 Joint head = body.Joints[JointType.Head];
                                 Joint lefthand = body.Joints[JointType.HandTipLeft];
                                
-                               // MessageBox.Show(" reaching x=" + righthand.Position.X);
+                             
                                 float difhead_z = righthand.Position.Z - head.Position.Z ;
                                
                                 //test.Text = difhead_z.ToString();
@@ -359,7 +281,7 @@ namespace WpfApplication1
                                     myMap.ZoomLevel -= 0.1;
                                 }
 
-                              //  float dif_x = head.Position.X - lefthand.Position.X;
+                             
                                 float dif_y = head.Position.Y - righthand.Position.Y;
                                 float dif_z = lefthand.Position.Z - righthand.Position.Z;
 
@@ -479,14 +401,7 @@ namespace WpfApplication1
             // Speech utterance confidence below which we treat speech as if it hadn't been heard
             const double ConfidenceThreshold = 0.3;
 
-            // Number of degrees in a right angle.
-           // const int DegreesInRightAngle = 90;
-
-            // Number of pixels turtle should move forwards or backwards each time.
-           // const int DisplacementAmount = 60;
-
-          //  this.ClearRecognitionHighlights();
-
+  
 
             if (e.Result.Confidence >= ConfidenceThreshold)
             {
@@ -573,22 +488,9 @@ namespace WpfApplication1
  ///------------------------------------------------ Voice handling end------------------------------------------------------- 
  
         private void getlocation_Click(object sender, RoutedEventArgs e)
-        {
-          //  try
-       //     {
-                GetMyLocation();
-         //   }
-         /*  catch (SystemException err)
-            {
-                string errMsg = "Unable to get your location: " + err.Message.ToString();
-                MessageBox.Show(errMsg);
-            }*/
-        }
-
-
-      
-
-
+        {          
+                GetMyLocation();       
+        }   
 
       public  void GetMyLocation()
         {
@@ -631,25 +533,17 @@ namespace WpfApplication1
          myMap.Children.Add(label);  
 
         }
-
-
-
-
        public GeocodeResponse GeocodeAddressGeocodeResponse(string address)
         {
             GeocodeRequest geocodeRequest = new GeocodeRequest();
           
-
             // Set the credentials using a valid Bing Maps key
             geocodeRequest.Credentials = new Microsoft.Maps.MapControl.WPF.Credentials();
                  geocodeRequest.Credentials.ApplicationId = key;
 
             // Set the full address query
             geocodeRequest.Query = address;
-
-            
-
-
+         
             // Set the options to only return high confidence results 
             ConfidenceFilter[] filters = new ConfidenceFilter[1];
             filters[0] = new ConfidenceFilter();
@@ -743,11 +637,8 @@ namespace WpfApplication1
             loc1.Longitude = resp.Results[0].Locations[0].Longitude;
             myMap.SetView(loc1, Convert.ToDouble(7), Convert.ToDouble(0));
 
-
-
             MapLayer.SetPosition(myPin_start, loc1);
             myMap.Children.Add(myPin_start);
-
 
             label_start.Content = input.Text;
             label_start.Foreground = new SolidColorBrush(Colors.DarkBlue);
@@ -771,8 +662,6 @@ namespace WpfApplication1
                 resp.Results[0].Locations[0].Latitude,
                 resp.Results[0].Locations[0].Longitude);
             }
-
-
 
 
             /* ---------------------------------adding pushpin to end location ------------------------------------------- */
@@ -869,17 +758,15 @@ namespace WpfApplication1
            RouteResponse routeResponse = routeService.CalculateRoute(routeRequest);
            routeresult = routeResponse.Result;
 
-         //  MessageBox.Show( routeresult.RoutePath.Points.Length.ToString() );
 
-          // labeldistance.Visibility = Visibility.Visible;
+
            labeldistance.Content = "Distance = " + routeResponse.Result.Summary.Distance.ToString() + " Km";
 
-           //MessageBox.Show(routeResponse.Result.Summary.Distance.ToString());
-           //MessageBox.Show(routeResponse.Result.RoutePath.Points.Count().ToString());
+
 
           
 
-           // Iterate through each itinerary item to get the route directions
+     
            StringBuilder directions = new StringBuilder("");
 
            if (routeResponse.Result.Legs.Length > 0)
@@ -915,16 +802,7 @@ namespace WpfApplication1
        private void init(string from , string to)
        {
 
-          //   string from = "26.9122,75.8060";
-        //  string to = "28.6432,77.1158";     
-   
-
-        //   GeocodeResponse resp = GeocodeAddressGeocodeResponse(input.Text);
-       //    string from = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
-
-          // resp = GeocodeAddressGeocodeResponse(input_des.Text);
-          // string to = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
-         
+  
            if (!string.IsNullOrWhiteSpace(from))
            {
                if (!string.IsNullOrWhiteSpace(to))
@@ -938,8 +816,7 @@ namespace WpfApplication1
                    {
                        Console.WriteLine(x.ResourceSets[0].Resources.Length + " result(s) found.");
 
-                       //displauMsgBox(x.ResourceSets[0].Resources[0];
-                       //Location loc = new Location();
+                 
                        if (x != null &&
                             x.ResourceSets != null &&
                             x.ResourceSets.Length > 0 &&
@@ -967,12 +844,7 @@ namespace WpfApplication1
                                }
                            }
 
-                          /* MapPolyline routeLine = new MapPolyline()
-                           {
-                               Locations = locs,
-                               Stroke = new SolidColorBrush(Colors.Blue),
-                               StrokeThickness = 5
-                           };*/
+                       
                            routeLine.Locations = locs ;
                            routeLine.Stroke = new SolidColorBrush(Colors.Red);
                            routeLine.StrokeThickness = 3 ;
@@ -994,7 +866,7 @@ namespace WpfApplication1
                        
 
 
-                       //displauMsgBox(x.ResourceSets[0].Resources.Length.ToString());
+                    
                    });
 
                }
