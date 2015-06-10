@@ -15,8 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Kinect;
-//using Microsoft.Speech;
-
+using Microsoft.Kinect.Wpf.Controls;
+using System.Speech.Recognition;
+using System.Speech.Synthesis;
 using WpfApplication1.GeocodeService;
 using WpfApplication1.SearchService;
 using WpfApplication1.ImageryService;
@@ -30,6 +31,7 @@ using BingMapsRESTService;
 using BingMapsRESTService.Common.JSON;
 using System.ServiceModel.Web;
 using System.Runtime.Serialization.Json;
+
 
 
 
@@ -53,9 +55,14 @@ namespace WpfApplication1
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
-    
+
+
     public partial class MainWindow : Window
     {
+        IList<Body> _bodies;
+
+        MultiSourceFrameReader _reader;
+
         private KinectSensor kinectSensor = null;
 
         /// <summary>
@@ -75,16 +82,26 @@ namespace WpfApplication1
         /// </summary>
     //    private List<Span> recognitionSpans;
 
-
+        SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
 // Key for bing maps 
         string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3";
         public MainWindow()
         {
+            
             InitializeComponent();
              myMap.Focus();
-            
-        }
+           KinectRegion.SetKinectRegion(this, kinectRegion);
 
+           // App app = ((App)Application.Current);
+            //app.KinectRegion = kinectRegion;
+
+           //   Use the default sensor
+            this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
+
+
+        }
+        
+    
 //------------------------------------------------- Voice handling start -----------------------------------------------------
         private static RecognizerInfo TryGetKinectRecognizer()
         {
@@ -129,7 +146,8 @@ namespace WpfApplication1
 
             return null;
         }
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+
+        public void openvoiceinterface()
         {
             test.Text = " window loaded ";
             // Only one sensor is supported
@@ -157,27 +175,45 @@ namespace WpfApplication1
             }
 
             RecognizerInfo ri = TryGetKinectRecognizer();
-            
+
             if (null != ri)
             {
                 test.Text = " got recognizer ";
                 this.speechEngine = new SpeechRecognitionEngine(ri.Id);
 
                 var directions = new Choices();
-                directions.Add("india");
-                directions.Add("jaipur");               
-                directions.Add("delhi");
-                directions.Add("new york");
-                directions.Add("himalayas");
-                directions.Add("microsoft");
-                directions.Add("google");
-                directions.Add("zoom");
-                directions.Add("back");
-                directions.Add("change mode");
-                directions.Add("hide direction");
-                directions.Add("find distance");
+                /*  directions.Add("india");
+                  directions.Add("jaipur");               
+                  directions.Add("delhi");
+                  directions.Add("new york");
+                  directions.Add("himalayas");
+                  directions.Add("microsoft");
+                  directions.Add("shimla");
+                  directions.Add("london");
+                  directions.Add("washington");
+                  directions.Add("google");
+                  directions.Add("zoom");
+                  directions.Add("back");
+                  directions.Add("change mode");
+                  directions.Add("hide direction");
+                  directions.Add("find distance");*/
 
-               
+                StreamReader reader = new StreamReader("C:\\Users\\mtcind\\Desktop\\gaurav\\2nd week\\WpfApplication1_v4\\WpfApplication1\\input.txt");
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    // Do something with the line.
+                    string[] parts = line.Split('\n');
+                    if (parts.Length == 1)
+                    {
+                        // MessageBox.Show(parts.Length.ToString());
+                        //gb.Append(parts[0].ToString());
+                        directions.Add(parts[0].ToString());
+                        //MessageBox.Show(parts[0].ToString());
+
+                    }
+                }
 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(directions);
@@ -190,9 +226,9 @@ namespace WpfApplication1
                 gb1.Append("take");
                 gb1.Append("me");
                 gb1.Append("from");
-                gb1.Append("jaipur");
+                gb1.Append("mumbai");
                 gb1.Append("to");
-                gb1.Append("agra");
+                gb1.Append("goa");
                 var g1 = new Grammar(gb1);
                 this.speechEngine.LoadGrammar(g1);
 
@@ -223,28 +259,32 @@ namespace WpfApplication1
                 gb4.Append("chicago");
                 var g4 = new Grammar(gb4);
                 this.speechEngine.LoadGrammar(g4);
-            
-               /* GrammarBuilder startStop = new GrammarBuilder();
-                GrammarBuilder dictation = new GrammarBuilder();
-                dictation.AppendDictation();
 
-                startStop.Append(new SemanticResultKey("StartDictation", new SemanticResultValue("Start Dictation", true)));
-                startStop.Append(new SemanticResultKey("DictationInput", dictation));
-                startStop.Append(new SemanticResultKey("StopDictation", new SemanticResultValue("Stop Dictation", false)));
-                Grammar grammar = new Grammar(startStop);
-                grammar.Enabled = true;
-                grammar.Name = " Free-Text Dictation ";
-                this.speechEngine.LoadGrammar(grammar);  */
+                /* GrammarBuilder startStop = new GrammarBuilder();
+                 GrammarBuilder dictation = new GrammarBuilder();
+                 dictation.AppendDictation();
+
+                 startStop.Append(new SemanticResultKey("StartDictation", new SemanticResultValue("Start Dictation", true)));
+                 startStop.Append(new SemanticResultKey("DictationInput", dictation));
+                 startStop.Append(new SemanticResultKey("StopDictation", new SemanticResultValue("Stop Dictation", false)));
+                 Grammar grammar = new Grammar(startStop);
+                 grammar.Enabled = true;
+                 grammar.Name = " Free-Text Dictation ";
+                 this.speechEngine.LoadGrammar(grammar);  */
 
 
-                   // this.speechEngine.LoadGrammar(new Grammar(new GrammarBuilder("exit")));
-                   // this.speechEngine.LoadGrammar(new DictationGrammar());
+                // this.speechEngine.LoadGrammar(new Grammar(new GrammarBuilder("exit")));
+                // this.speechEngine.LoadGrammar(new DictationGrammar());
 
-           
 
+                speechSynthesizer.Speak("welcome to microsoft bing maps.");
+                speechSynthesizer.Dispose();
 
                 this.speechEngine.SpeechRecognized += this.SpeechRecognized;
                 this.speechEngine.SpeechRecognitionRejected += this.SpeechRejected;
+
+                this.speechEngine.SetInputToDefaultAudioDevice(); // set the input to the default audio device
+
 
                 // let the convertStream know speech is going active
                 this.convertStream.SpeechActive = true;
@@ -259,10 +299,155 @@ namespace WpfApplication1
             }
             else
             {
-                test.AppendText( "\n\nno speech recognizer ");
+                test.AppendText("\n\nno speech recognizer ");
                 //this.statusBarText.Text = Properties.Resources.NoSpeechRecognizer;
             }
         }
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            kinectSensor = KinectSensor.GetDefault();
+           
+            if (kinectSensor != null)
+            {
+                kinectSensor.Open();
+
+                _reader = kinectSensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
+                _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
+            }
+
+           // test.Text = myMap.Center.Latitude.ToString();
+        }
+     
+        void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
+        {
+            var reference = e.FrameReference.AcquireFrame();
+            System.Windows.Point p;
+            myMap.TryLocationToViewportPoint(myMap.Center, out p);
+           
+          
+            using (var frame = reference.BodyFrameReference.AcquireFrame())
+            {
+                if (frame != null)
+                {
+                   
+
+                    _bodies = new Body[frame.BodyFrameSource.BodyCount];
+
+                    frame.GetAndRefreshBodyData(_bodies);
+
+                    foreach (var body in _bodies)
+                    {
+                        if (body != null)
+                        {
+                            if (body.IsTracked)
+                            {
+                                //hand control gesture code 
+                                Joint righthand = body.Joints[JointType.HandRight];
+                                Joint head = body.Joints[JointType.Head];
+                                Joint lefthand = body.Joints[JointType.HandTipLeft];
+                               
+                               // MessageBox.Show(" reaching x=" + righthand.Position.X);
+                                float difhead_z = righthand.Position.Z - head.Position.Z ;
+                               
+                                //test.Text = difhead_z.ToString();
+                                if ((lefthand.Position.Z - righthand.Position.Z) > 0.3 && body.HandLeftState == HandState.Closed )
+                                {
+                                    myMap.ZoomLevel += 0.1;
+                                }
+                                else if ((lefthand.Position.Z - righthand.Position.Z) < -0.3 && body.HandLeftState == HandState.Closed )
+                                {
+                                    myMap.ZoomLevel -= 0.1;
+                                }
+
+                              //  float dif_x = head.Position.X - lefthand.Position.X;
+                                float dif_y = head.Position.Y - righthand.Position.Y;
+                                float dif_z = lefthand.Position.Z - righthand.Position.Z;
+
+                               
+
+                                //test.Text = dif_y.ToString();
+                                // to move in x & y direction simultaneously
+                             if ((head.Position.X - righthand.Position.X) < -0.5 && (head.Position.Y - righthand.Position.Y) < -0.1 && body.HandRightState == HandState.Closed)
+                                {
+                                    //  1st quadrant 
+
+                                    p.X += 15;
+                                    p.Y -= 15;
+                                }
+                                if ((head.Position.X - lefthand.Position.X) > 0.30 && (head.Position.Y - lefthand.Position.Y) > 0.4 && body.HandLeftState == HandState.Closed)
+                                {
+
+                                    //  3rd quadrant 
+                                    p.Y += 15;
+                                    p.X -= 15;
+                                }
+                                if ((head.Position.X - righthand.Position.X) < 0.05 && (head.Position.Y - righthand.Position.Y) < -0.1 && body.HandRightState == HandState.Closed)
+                                {
+                                    p.X -= 15;
+                                    p.Y -= 15;//  2nd quadrant
+                                }
+                                if ((head.Position.X - righthand.Position.X) < -0.5 && (head.Position.Y - righthand.Position.Y) > 0.4 && body.HandRightState == HandState.Closed)
+                                {
+                                    p.Y += 15;
+                                    p.X += 15; //  4th quadrant 
+                                }
+                                
+                                // to move fast on map
+                                if( body.HandRightState == HandState.Closed)
+                                {
+                                    if ((head.Position.X - righthand.Position.X)  < -0.500 )
+                                         {
+                                              p.X += 15;       // goes right direction 
+                                         }
+                                     if ((head.Position.Y - righthand.Position.Y) < -0.10 )
+                                         {
+                                            
+                                             p.Y -= 15;       // goes up
+                                         }
+                                   if ((head.Position.X - righthand.Position.X) > 0.100)
+                                         {
+                                             p.X -=15;       // goes left direction 
+                                         }
+                                   if ((head.Position.Y - righthand.Position.Y) > 0.4500  )
+                                        {
+                                             p.Y += 15;       // goes down
+                                        }
+                                }
+                               
+                               
+                                // to move slow on map 
+
+                    if(body.HandRightState != HandState.Closed)
+                    {
+                                if ((head.Position.X - righthand.Position.X) < -0.500 )
+                                {
+                                    p.X += 5;       // goes right direction 
+                                }
+                                else if ((head.Position.Y - righthand.Position.Y) < -0.10 )
+                                {
+                                    p.Y -= 5;       // goes up
+                                }
+                                else if ((head.Position.X - righthand.Position.X) > 0.100)
+                                {                                   
+                                    p.X -= 5;       // goes left direction 
+                                }
+                              /*  else if ((head.Position.Y - righthand.Position.Y) > 0.4500  )
+                                {
+                                    p.Y += 5;       // goes down
+                                } */
+                    }             
+                                Microsoft.Maps.MapControl.WPF.Location l;
+                                myMap.TryViewportPointToLocation(p, out l);
+                                myMap.SetView(l, myMap.ZoomLevel);
+
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+
+       
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             if (null != this.convertStream)
@@ -312,6 +497,8 @@ namespace WpfApplication1
                     {
                         case "zoom":
                             myMap.ZoomLevel += 3;
+                            
+                        
                             break;
 
                         case "back":
@@ -384,10 +571,7 @@ namespace WpfApplication1
         }
 
  ///------------------------------------------------ Voice handling end------------------------------------------------------- 
-    /// <summary>
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
+ 
         private void getlocation_Click(object sender, RoutedEventArgs e)
         {
           //  try
@@ -630,12 +814,17 @@ namespace WpfApplication1
        }
        private string GetDirections()
        {
-         /*  GeocodeResponse resp = GeocodeAddressGeocodeResponse(input.Text);
-           string start = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
+           if( string.IsNullOrEmpty(start))
+            { 
+           GeocodeResponse resp = GeocodeAddressGeocodeResponse(input.Text);
+            start = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
+             }
 
-           resp = GeocodeAddressGeocodeResponse(input_des.Text);
-           string end = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
-       */   
+           if (string.IsNullOrEmpty(end))
+           {
+               GeocodeResponse resp = GeocodeAddressGeocodeResponse(input_des.Text);
+               end = resp.Results[0].Locations[0].Latitude.ToString() + "," + resp.Results[0].Locations[0].Longitude.ToString();
+           }
            string results = "";
            RouteRequest routeRequest = new RouteRequest();
 
@@ -647,12 +836,15 @@ namespace WpfApplication1
            string[] points = new string[] { start, end };
            Waypoint[] waypoints = new Waypoint[points.Length];
 
+           
            int pointIndex = -1;
            foreach (string point in points)
            {
                pointIndex++;
                waypoints[pointIndex] = new Waypoint();
-               string[] digits = point.Split(','); waypoints[pointIndex].Location = new RouteService.Location();
+               string[] digits = point.Split(','); 
+
+               waypoints[pointIndex].Location = new RouteService.Location();
                waypoints[pointIndex].Location.Latitude = double.Parse(digits[0].Trim());
                waypoints[pointIndex].Location.Longitude = double.Parse(digits[1].Trim());
 
@@ -854,6 +1046,18 @@ namespace WpfApplication1
                    }
                }
            }, null);
+       }
+
+       private void button_startvoice_Click(object sender, RoutedEventArgs e)
+       {
+           openvoiceinterface();
+           button_startvoice.Visibility = Visibility.Hidden;
+       }
+
+       private void button_direction_Click(object sender, RoutedEventArgs e)
+       {
+           labelResults.Visibility = Visibility.Visible;
+           labelResults.Content = GetDirections();
        }
       
     }
