@@ -82,3 +82,6 @@ C:\Users\mtcind\Desktop\presentation\WpfApplication1_v3\WpfApplication1\obj\Debu
 C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\bin\Debug\WpfApplication1.exe.config
 C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.exe
 C:\Users\mtcind\Desktop\presentation\working\WpfApplication1_v3\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\mtcind\kinectbingmap\WpfApplication1\bin\Debug\WpfApplication1.exe.config
+C:\Users\mtcind\kinectbingmap\WpfApplication1\obj\Debug\WpfApplication1.exe
+C:\Users\mtcind\kinectbingmap\WpfApplication1\obj\Debug\WpfApplication1.pdb
