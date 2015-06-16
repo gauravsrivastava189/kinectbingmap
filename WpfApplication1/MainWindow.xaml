@@ -37,7 +37,7 @@
                 <Button x:Name="button_startvoice" Content="Start Voice Interface" HorizontalAlignment="Left" Height="76" VerticalAlignment="Top" Width="118" Margin="563,0,0,0" IsCancel="True" Click="button_startvoice_Click" Visibility="Hidden"/>
                 <Button x:Name="button_direction" Content="Find Direction" HorizontalAlignment="Left" Height="71" VerticalAlignment="Top" Width="107" Margin="0,510,0,0" Click="button_direction_Click" FontWeight="Bold" RenderTransformOrigin="0.495,3.467" Visibility="Hidden"/>
                 <Button x:Name="button_handgesture" Content="Start Hand Gesture" HorizontalAlignment="Left" Height="76" VerticalAlignment="Top" Width="114" Margin="681,0,0,0" IsCancel="True" Click="button_handgesture_Click" Visibility="Hidden"/>
-                <Image x:Name="image_engage" HorizontalAlignment="Left" Height="394" VerticalAlignment="Top" Width="492" Margin="348,284,0,0" Source ="to_engage.png"/>
+                <Image x:Name="image_engage" HorizontalAlignment="Left" Height="394" VerticalAlignment="Top" Width="492" Margin="348,284,0,0" Source ="to_engage.png" Opacity="0.6"/>
 
             </m:Map>
 
