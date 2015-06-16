@@ -1,15 +1,21 @@
-india
-jaipur
-delhi
-new york
-himalayas
-microsoft
-shimla
-london
-washington
-chicago
+India
+Jaipur
+Delhi
+New York
+Himalayas
+Microsoft
+Shimla
+London
+Washington
+Chicago
 zoom
 back
 change mode
 hide direction
 find distance
+right
+left
+up
+down
+button mode
+hide button
