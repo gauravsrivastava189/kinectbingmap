@@ -1,11 +1,2 @@
 1. added feature : added driving direction between two location on maps., using soap services .
 2. pushpin added on two location and showing on map , a straight line between two location .
-3. voice interface to find location by calling out place name.
-4. voice interface to find route between two places 
-eg
-
-take me from new york to chichago
-5. finding distance between them.
-6. changing map mode 
-eg change mode
-7. call "hide direction" to hide the label showing direction to drive on between places.

@@ -13,3 +13,9 @@ back
 change mode
 hide direction
 find distance
+right
+left
+up
+down
+button mode
+hide button

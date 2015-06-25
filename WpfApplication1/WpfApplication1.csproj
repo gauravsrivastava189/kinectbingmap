@@ -33,15 +33,36 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Maps.MapControl.WPF">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Speech\v11.0\Assembly\Microsoft.Speech.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft SDKs\Speech\v11.0\Assembly\Microsoft.Speech.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -68,23 +89,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="datacontract.cs" />
+    <Compile Include="Hand pointer\HandInScreenEngagementModel.cs" />
+    <Compile Include="Hand pointer\HandOverheadEngagementModel.cs" />
     <Compile Include="KinectAudioStream.cs" />
     <Compile Include="Service References\GeocodeService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ImageryService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\RouteService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\SearchService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -125,51 +138,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\GeocodeService\Arrays.xsd">
+    <None Include="Service References\GeocodeService\GeocodeService.wsdl" />
+    <None Include="Service References\GeocodeService\GeocodeService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GeocodeService\common.xsd">
+    <None Include="Service References\GeocodeService\GeocodeService1.wsdl" />
+    <None Include="Service References\GeocodeService\GeocodeService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GeocodeService\contracts.wsdl" />
-    <None Include="Service References\GeocodeService\contracts.xsd">
+    <None Include="Service References\GeocodeService\GeocodeService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GeocodeService\geocode.wsdl" />
-    <None Include="Service References\GeocodeService\geocode.xsd">
+    <None Include="Service References\GeocodeService\GeocodeService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GeocodeService\service.xsd">
+    <None Include="Service References\GeocodeService\GeocodeService4.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\GeocodeService\WpfApplication1.GeocodeService.GeocodeResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ImageryService\ImageryService.wsdl" />
-    <None Include="Service References\ImageryService\ImageryService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\imageryservice1.wsdl" />
-    <None Include="Service References\ImageryService\ImageryService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\ImageryService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\ImageryService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\ImageryService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\ImageryService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ImageryService\WpfApplication1.ImageryService.ImageryMetadataResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ImageryService\WpfApplication1.ImageryService.MapUriResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RouteService\common.xsd">
       <SubType>Designer</SubType>
@@ -185,46 +169,41 @@
     <None Include="Service References\RouteService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RouteService\WpfApplication1.RouteService.MajorRoutesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\RouteService\WpfApplication1.RouteService.RouteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SearchService\dev.wsdl" />
-    <None Include="Service References\SearchService\dev.xsd">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SearchService\dev1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SearchService\dev2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SearchService\schemas.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SearchService\schemas1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SearchService\SearchService.wsdl" />
-    <None Include="Service References\SearchService\WpfApplication1.SearchService.SearchResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <COMReference Include="SpeechLib">
+      <Guid>{D3C4A7F2-7D27-4332-B41F-593D71E16DB1}</Guid>
+      <VersionMajor>11</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="justin_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\speechlibrary\speechlibrary.csproj">
+      <Project>{0cd34b61-052f-4049-889e-07daa1f2844f}</Project>
+      <Name>speechlibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\GeocodeService\" />
-    <WCFMetadataStorage Include="Service References\ImageryService\" />
     <WCFMetadataStorage Include="Service References\RouteService\" />
-    <WCFMetadataStorage Include="Service References\SearchService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\GeocodeService\configuration91.svcinfo" />
@@ -234,30 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\GeocodeService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SearchService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SearchService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SearchService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ImageryService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ImageryService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ImageryService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -273,9 +228,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="to_engage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
