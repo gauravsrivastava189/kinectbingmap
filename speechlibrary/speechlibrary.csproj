@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="datacontract.cs" />
-    <Compile Include="Imtcservice.cs" />
     <Compile Include="kinectandspeech.cs" />
     <Compile Include="KinectAudioStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +141,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Imtcspeechservice\Imtcspeechservice.csproj">
+      <Project>{26b08d99-423f-46bb-8a68-c5d9d985e407}</Project>
+      <Name>Imtcspeechservice</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,6 +14,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using Imtcspeechservice;
 using BingMapsRESTService;
 using BingMapsRESTService.Common.JSON;
 using System.ServiceModel.Web;
@@ -28,7 +29,7 @@ namespace speechlibrary
   
    
     
-    public class kinectandspeech : Imtcservice 
+    public class kinectandspeech : speechinterface
     {
         public KinectAudioStream convertStream = null;
         public SpeechRecognitionEngine speechEngine = null;
@@ -194,34 +195,38 @@ namespace speechlibrary
              speechEngine.SpeechRecognized += this.speechEngine_SpeechRecognized;
              speechEngine.SpeechRecognitionRejected += this.speechEngine_SpeechRecognitionRejected;
 
-            speechEngine.SetInputToDefaultAudioDevice();
+             speechEngine.SetInputToDefaultAudioDevice();
              // let the convertStream know speech is going active
              this.convertStream.SpeechActive = true;
-          
-            speechEngine.SetInputToAudioStream(
-            this.convertStream, new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
+
+             // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
+             // This will prevent recognition accuracy from degrading over time.
+        //    this.speechEngine.UpdateRecognizerSetting("AdaptationOn", 0);
+
+             speechEngine.SetInputToAudioStream(
+                 this.convertStream, new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
              speechEngine.RecognizeAsync(RecognizeMode.Multiple);  
       
           
       }
-      public void transporting_funciton(mydelegate speechrecognized_delegate )
+      public void call_after_speech_recognition_function(mydelegate speechrecognized_delegate)
       {
           local_speechrecognized_delegate = speechrecognized_delegate;
       }
 
-      public static void speechlibrray_windowclosing(kinectandspeech addgrammer)
+      public  void speechlibrray_windowclosing()
         {
            
-               if (null != addgrammer.convertStream)
+               if (null != this.convertStream)
               {                 
-                  addgrammer.convertStream.SpeechActive = false;
+                  this.convertStream.SpeechActive = false;
               }
 
-               if (null != addgrammer.speechEngine)
+               if (null != this.speechEngine)
               {
-                  addgrammer.speechEngine.SpeechRecognized -= addgrammer.speechEngine_SpeechRecognized;
-                  addgrammer.speechEngine.SpeechRecognitionRejected -= addgrammer.speechEngine_SpeechRecognitionRejected;
-                  addgrammer.speechEngine.RecognizeAsyncStop();
+                  this.speechEngine.SpeechRecognized -= this.speechEngine_SpeechRecognized;
+                  this.speechEngine.SpeechRecognitionRejected -= this.speechEngine_SpeechRecognitionRejected;
+                  this.speechEngine.RecognizeAsyncStop();
               }
           
         }
@@ -233,7 +238,7 @@ namespace speechlibrary
 
       void speechEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
       {
-         
+
          string[] sentence = new string[6] ;
          string command ="";
           const double ConfidenceThreshold = 0.5;
@@ -352,7 +357,7 @@ namespace speechlibrary
               if (!string.IsNullOrWhiteSpace(to))
               {
                   //Create the Request URL for the routing service
-                    Uri routeRequest = new Uri(string.Format("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0={0}&wp.1={1}&rpo=Points&key={2}",
+                  Uri routeRequest = new Uri(string.Format("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0={0}&wp.1={1}&rpo=Points&key={2}",
                      from, to, "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3"));
 
 
@@ -459,6 +464,11 @@ namespace speechlibrary
 
           // labeldistance.Visibility = Visibility.Visible;
           distance = "Distance = " + routeResponse.Result.Summary.Distance.ToString() + " Km";
+
+          //MessageBox.Show(routeResponse.Result.Summary.Distance.ToString());
+          //MessageBox.Show(routeResponse.Result.RoutePath.Points.Count().ToString());
+
+
 
           // Iterate through each itinerary item to get the route directions
           StringBuilder directions = new StringBuilder("");

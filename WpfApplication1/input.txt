@@ -8,10 +8,14 @@ shimla
 london
 washington
 chicago
+indiagate
+taj mahal
 zoom
 back
 change mode
+clear map
 hide direction
+get image
 find distance
 right
 left

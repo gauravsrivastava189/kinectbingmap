@@ -18,6 +18,7 @@ using Microsoft.Kinect;
 using Microsoft.Kinect.Wpf.Controls;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using Imtcspeechservice;
 using Microsoft.Maps.MapControl.WPF;
 using speechlibrary;
 using System.IO;
@@ -27,79 +28,68 @@ using BingMapsRESTService.Common.JSON;
 using System.ServiceModel.Web;
 using System.Runtime.Serialization.Json;
 
-
-
-
-
-
 namespace WpfApplication1
 {
-   
-   using System.Runtime.InteropServices;
-   using Microsoft.Speech.AudioFormat;
-   using Microsoft.Speech.Recognition;
  
-    public partial class MainWindow : Window 
+    using System.Runtime.InteropServices;
+    using Microsoft.Speech.AudioFormat;
+    using Microsoft.Speech.Recognition;
+
+   public partial class MainWindow : Window 
     {
         IList<Body> _bodies;
         
         MultiSourceFrameReader _reader;
-       
 
+        
         public KinectSensor kinectSensor = null;
         
-        public kinectandspeech addgrammer = new kinectandspeech(); 
+        public kinectandspeech addgrammer = new kinectandspeech();
 
-        /// <summary>
-        /// Stream for 32b-16b conversion.
-        /// </summary>
-      
-    //  private KinectAudioStream convertStream = null;
+        bool flag_engage = false;
+        ulong trackingid = 0;
+        string start;
+        string end;
+        public bool flag_mode = false;
 
-        /// <summary>
-        /// Speech recognition engine using audio data from Kinect.
-        /// </summary>
-     //   private SpeechRecognitionEngine speechEngine = null;
+        
+       
 
+        Microsoft.Maps.MapControl.WPF.Location image_location = new Microsoft.Maps.MapControl.WPF.Location();
+        Microsoft.Maps.MapControl.WPF.Pushpin myPin_start = new Microsoft.Maps.MapControl.WPF.Pushpin();
+        Microsoft.Maps.MapControl.WPF.Pushpin myPin_end = new Microsoft.Maps.MapControl.WPF.Pushpin();
+        System.Windows.Controls.Label label_start = new System.Windows.Controls.Label();
+        System.Windows.Controls.Label label_end = new System.Windows.Controls.Label();
+        MapPolyline routeLine = new MapPolyline();
 
-        /// <summary>
-        /// List of all UI span elements used to select recognized text.
-        /// </summary>
-    //    private List<Span> recognitionSpans;
+    
 
        SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
-// Key for bing maps 
-        string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3";
-        public MainWindow()
-        {
-            
-            InitializeComponent();
-             myMap.Focus();
-           KinectRegion.SetKinectRegion(this, kinectRegion);
+        // Key for bing maps 
+       string key = "Alb8_m-LNHfEuGq-hXrdCNVYiqLKvzIZd3ZImsYlF1zHl1J1lCNEr_vtjPehn6t3";
 
-          
-           //   Use the default sensor
-            this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
-
-
+       public MainWindow()
+        {            
+           InitializeComponent();
+           myMap.Focus();
+           KinectRegion.SetKinectRegion(this, kinectRegion);                   
+           this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
         }
-        
-    
-//------------------------------------------------- Voice handling start -----------------------------------------------------
-      
-        public void openvoiceinterface()
+     
+       public void openvoiceinterface()
         {
-          
+               
             int result = 1;
            
             test.Text = " window loaded ";
-            // Only one sensor is supported
+         
+            addgrammer.call_after_speech_recognition_function(SpeechRecognized);
+               
+            addgrammer.Add_Grammer(ref result );
 
-                addgrammer.transporting_funciton(SpeechRecognized);
-                addgrammer.Add_Grammer(ref result );
-
-                if( result == 0 )
-                 {
+               
+            if( result == 0 )
+                {
                     test.AppendText("\n\nno speech recognizer ");                        
                  }
                 else if(result == 2)
@@ -109,7 +99,8 @@ namespace WpfApplication1
               
            
         }
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+
+       private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             kinectSensor = KinectSensor.GetDefault();
             button_handgesture.Visibility = Visibility.Hidden;
@@ -124,12 +115,9 @@ namespace WpfApplication1
             openvoiceinterface();
            
             
-        }
+        }     
 
-
-        bool flag_engage = false;
-        ulong trackingid = 0;
-        void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
+       void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
             var reference = e.FrameReference.AcquireFrame();
             System.Windows.Point p;
@@ -210,7 +198,7 @@ namespace WpfApplication1
                                     // for moving fast 
                                     if (main_body.HandRightState == HandState.Closed && main_body.HandLeftState != HandState.Closed)
                                     {
-                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.300))
+                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.200))
                                         {
                                             p.X += 40;
                                         }
@@ -245,7 +233,7 @@ namespace WpfApplication1
 
                                     if (main_body.HandRightState == HandState.Open && main_body.HandLeftState != HandState.Closed)
                                     {
-                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.300))
+                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.200))
                                         {
                                             p.X += 25;
                                         }
@@ -317,26 +305,23 @@ namespace WpfApplication1
                 }
               }
         }
-
-       
-        private void WindowClosing(object sender, CancelEventArgs e)
+      
+       private void WindowClosing(object sender, CancelEventArgs e)
         {
-            kinectandspeech.speechlibrray_windowclosing(addgrammer);
+            addgrammer.speechlibrray_windowclosing();
 
             if (null != this.kinectSensor)
             {
-                this.kinectSensor.Close();
+                this.kinectSensor.Close(); 
                 this.kinectSensor = null;
             }
         }
-
-        string start;
-        string end;
-        public void SpeechRecognized(ref string[] sentence ,ref string command )
+         
+       public void SpeechRecognized(ref string[] sentence ,ref string command )
         {
             
             test.Text = " speech recognized ";
-          
+            label_speakagain.Visibility = Visibility.Hidden;
             System.Windows.Point p;
             myMap.TryLocationToViewportPoint(myMap.Center, out p);
             Microsoft.Maps.MapControl.WPF.Location l;
@@ -378,6 +363,22 @@ namespace WpfApplication1
                                 flag_mode = false;
                              }
                         break;
+
+                        case "Clear map":
+                            myMap.Children.Clear();
+                            add_item_over_map(); 
+                       
+                        break;
+
+                        case "remove all":
+                            myMap.Children.Clear();
+                            add_item_over_map();
+
+                                 break;
+
+                        case "get image":
+                                 addImageToMap(input.Text);
+                                 break;
 
                         case "right" :
                               p.X += 300;
@@ -423,7 +424,9 @@ namespace WpfApplication1
                             {
                                
                                 string errMsg = "Unable to get your location: " + err.Message.ToString();
-                                MessageBox.Show(errMsg);
+                                label_speakagain.Visibility = Visibility.Visible;
+                                label_speakagain.Content = errMsg;
+                               
                             }
                             break;
 
@@ -455,20 +458,78 @@ namespace WpfApplication1
                 
            
         }
-        private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+         
+       private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
         {
             return;
         }
+       public void add_item_over_map()
+       {
+           myMap.Children.Add(labelResults);
+           labelResults.Visibility = Visibility.Hidden;
+           myMap.Children.Add(labeldistance);
+           labeldistance.Visibility = Visibility.Hidden;
+           myMap.Children.Add(input);
+           myMap.Children.Add(input_des);
+           myMap.Children.Add(location);
+           myMap.Children.Add(button_direction);
+           myMap.Children.Add(zoomdown);
+           myMap.Children.Add(zoomup);
+           myMap.Children.Add(route);
+           myMap.Children.Add(test);
+           myMap.Children.Add(getlocation);
+           myMap.Children.Add(image_engage); ;
 
- ///------------------------------------------------ Voice handling end------------------------------------------------------- 
- 
-        private void getlocation_Click(object sender, RoutedEventArgs e)
-        {
+
+
+       }
+       public void addImageToMap(string place)
+       {
+           MapLayer imageLayer = new MapLayer();
+           Image image = new Image();
+           image.Height = 350;
+           
+           //Define the URI location of the image
+            BitmapImage myBitmapImage = new BitmapImage();
+            myBitmapImage.BeginInit();
+            if (place == "Victoria fall")
+                myBitmapImage.UriSource = new Uri("Victoria_Falls.jpg", UriKind.Relative);
+            else if (place == "India gate")
+            {
+                myBitmapImage.UriSource = new Uri("indiagate.jpg", UriKind.Relative);
+                image.Name = "india";
+            }
+            else if (place == "Himalayas")
+                myBitmapImage.UriSource = new Uri("himalayas.jpg", UriKind.Relative);
+            else
+                return;
+          // myBitmapImage.UriSource = new Uri("http://vignette3.wikia.nocookie.net/cryptidz/images/7/79/Himalayas.jpg/revision/latest?cb=20140611014713");
+           
+           myBitmapImage.DecodePixelHeight = 350;
+           myBitmapImage.EndInit();
+           image.Source = myBitmapImage;
+           image.Opacity = 0.8;
+           image.Stretch = System.Windows.Media.Stretch.None;
+
+           //The map location to place the image at
+           //Center the image around the location specified
+           PositionOrigin position = PositionOrigin.Center;
+
+           //Add the image to the defined map layer
+           imageLayer.AddChild(image, image_location, position);
+           //Add the image layer to the map
+           myMap.Children.Add(imageLayer);
           
+       }
+       
+       private void getlocation_Click(object sender, RoutedEventArgs e)
+        {
+            
                 GetMyLocation();
          
-        }   
-      public  void GetMyLocation()
+        }
+ 
+       public  void GetMyLocation()
         {
             string results = "";
             var getgeocode = new kinectandspeech();
@@ -476,6 +537,7 @@ namespace WpfApplication1
             Microsoft.Maps.MapControl.WPF.Location loc = new Microsoft.Maps.MapControl.WPF.Location();
 
             loc = getgeocode.getlocation(input.Text, ref results);
+            image_location = loc;
             location.Text = results;
             if(location.Text == "No Result Found")
             {
@@ -495,12 +557,11 @@ namespace WpfApplication1
          label.Foreground = new SolidColorBrush(Colors.DarkBlue);
          label.Background = new SolidColorBrush(Colors.LawnGreen);
          label.FontSize = 25;
+         label.Opacity = 0.6;
          MapLayer.SetPosition(label , loc);
          myMap.Children.Add(label);  
 
         }
-
-       bool flag_mode= false;
 
        private void mode_Click(object sender, RoutedEventArgs e)
        {
@@ -525,10 +586,8 @@ namespace WpfApplication1
        {
            myMap.ZoomLevel -= 2;
        }
-
- //-------------------------------Route calculation --------------------------------------------------------------
  
-        void clear_map()
+       void clear_map()
        {
            myMap.Children.Remove(myPin_end);
            myMap.Children.Remove(myPin_start);
@@ -537,13 +596,7 @@ namespace WpfApplication1
            myMap.Children.Remove(routeLine);
            labelResults.Visibility = Visibility.Hidden;
            labeldistance.Visibility = Visibility.Hidden;
-       }
-       
-        
-        Microsoft.Maps.MapControl.WPF.Pushpin myPin_start = new Microsoft.Maps.MapControl.WPF.Pushpin();
-        Microsoft.Maps.MapControl.WPF.Pushpin myPin_end = new Microsoft.Maps.MapControl.WPF.Pushpin();
-        System.Windows.Controls.Label label_start = new System.Windows.Controls.Label();
-        System.Windows.Controls.Label label_end = new System.Windows.Controls.Label();
+       }             
 
        public  void GetMyRoute()
         {
@@ -636,13 +689,16 @@ namespace WpfApplication1
             init(start_from, end_to);    // this funciton will add route on the map 
                               
         }
+
        private void route_Click(object sender, RoutedEventArgs e)
        {
            GetMyRoute();
        }
-       private string GetDirections()
+
+       public string GetDirections()
        {
            kinectandspeech direction = new kinectandspeech() ;
+           
            Microsoft.Maps.MapControl.WPF.Location loc = new Microsoft.Maps.MapControl.WPF.Location();
            string locationresult ="" ;
 
@@ -674,13 +730,11 @@ namespace WpfApplication1
 
           results = direction.getdirection(start, end, ref distance);
           labeldistance.Content = distance;
-       
-           return results;
-                    
+        
+           return results;                    
        }
-
-       MapPolyline routeLine = new MapPolyline();
-     private void init(string from , string to)
+     
+       private void init(string from , string to)
        {
            var getlocation = new kinectandspeech();
                   
@@ -697,11 +751,9 @@ namespace WpfApplication1
                            routeLine.StrokeThickness = 4 ;
 
                            myMap.Children.Add(routeLine);
-
-                         // Console.WriteLine("-----------------count = " + getlocation.locs.Count.ToString());
-
+                        
                            myMap.ZoomLevel = 5;
-                           //myMap.SetView(routeLine.Locations, new Thickness(17), 0);
+                           
                  }
                  else
                  {
@@ -710,8 +762,7 @@ namespace WpfApplication1
            }
        }
 
-
-        private void button_startvoice_Click(object sender, RoutedEventArgs e)
+       private void button_startvoice_Click(object sender, RoutedEventArgs e)
        {
            openvoiceinterface();
            button_startvoice.Visibility = Visibility.Hidden;
@@ -736,26 +787,24 @@ namespace WpfApplication1
            }
        }
       
-        public void debug_mode()
+       public void debug_mode()
        {
            getlocation.Visibility = Visibility.Visible;
            button_direction.Visibility = Visibility.Visible;
-           button_handgesture.Visibility = Visibility.Visible;
-           button_startvoice.Visibility = Visibility.Visible;
+         //  button_handgesture.Visibility = Visibility.Visible;
+         //  button_startvoice.Visibility = Visibility.Visible;
            zoomdown.Visibility = Visibility.Visible;
            zoomup.Visibility = Visibility.Visible;
            mode.Visibility = Visibility.Visible;
-           route.Visibility = Visibility.Visible;
-
-
-            // text boxes
+           route.Visibility = Visibility.Visible;          
 
            input.Visibility = Visibility.Visible;
            input_des.Visibility = Visibility.Visible;
            location.Visibility = Visibility.Visible;
-            test.Visibility = Visibility.Visible;
+           test.Visibility = Visibility.Visible;
        }
-        public void hide_button()
+
+       public void hide_button()
         {
             getlocation.Visibility = Visibility.Hidden;
             button_direction.Visibility = Visibility.Hidden;
@@ -766,13 +815,13 @@ namespace WpfApplication1
             mode.Visibility = Visibility.Hidden;
             route.Visibility = Visibility.Hidden;
 
-
-            // text boxes
-
             input.Visibility = Visibility.Hidden;
             input_des.Visibility = Visibility.Hidden;
             location.Visibility = Visibility.Hidden;
             test.Visibility = Visibility.Hidden;
         }
+
     }
+
+    
 }
