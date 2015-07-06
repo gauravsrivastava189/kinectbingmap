@@ -445,7 +445,7 @@ namespace WpfApplication1
                              break;
 
                         case "button mode" :
-                             //debug_mode();
+                             debug_mode();
                              break;
 
                         case "hide button":
@@ -478,11 +478,7 @@ namespace WpfApplication1
                    
 
                     if ("takemefrom" == sentence[0] + sentence[1] + sentence[2]   )
-                    {
-                        
-                           // test_flag++;
-                     
-                        
+                    {                                                                                
                         input.Text = sentence[3];
                         input_des.Text = sentence[5];
                         test.Text = sentence[0] + sentence[1] + sentence[2] + sentence[3] + sentence[5];
