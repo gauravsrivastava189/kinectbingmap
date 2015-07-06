@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kinectbingmaps", "WpfApplication1\kinectbingmaps.csproj", "{9B2BBFB0-5017-4D45-9D7F-4BDE80C8CC1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication1", "WpfApplication1\WpfApplication1.csproj", "{9B2BBFB0-5017-4D45-9D7F-4BDE80C8CC1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "speechlibrary", "speechlibrary\speechlibrary.csproj", "{0CD34B61-052F-4049-889E-07DAA1F2844F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imtcspeechservice", "Imtcspeechservice\Imtcspeechservice.csproj", "{26B08D99-423F-46BB-8A68-C5D9D985E407}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,12 @@ Global
 		{0CD34B61-052F-4049-889E-07DAA1F2844F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD34B61-052F-4049-889E-07DAA1F2844F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0CD34B61-052F-4049-889E-07DAA1F2844F}.Release|x86.ActiveCfg = Release|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B08D99-423F-46BB-8A68-C5D9D985E407}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

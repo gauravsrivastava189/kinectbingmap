@@ -88,7 +88,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="datacontract.cs" />
     <Compile Include="Hand pointer\HandInScreenEngagementModel.cs" />
     <Compile Include="Hand pointer\HandOverheadEngagementModel.cs" />
     <Compile Include="KinectAudioStream.cs" />
@@ -193,6 +192,10 @@
     <Resource Include="justin_1.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Imtcspeechservice\Imtcspeechservice.csproj">
+      <Project>{26b08d99-423f-46bb-8a68-c5d9d985e407}</Project>
+      <Name>Imtcspeechservice</Name>
+    </ProjectReference>
     <ProjectReference Include="..\speechlibrary\speechlibrary.csproj">
       <Project>{0cd34b61-052f-4049-889e-07daa1f2844f}</Project>
       <Name>speechlibrary</Name>
@@ -228,6 +231,18 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="taj_mahal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="himalayas.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="indiagate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Victoria_Falls.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
