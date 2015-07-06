@@ -161,7 +161,7 @@ namespace speechlibrary
               var g2 = new Grammar(gb2);
               speechEngine.LoadGrammar(g2);
 
-              var gb3 = new GrammarBuilder { Culture = ri.Culture };
+         /*     var gb3 = new GrammarBuilder { Culture = ri.Culture };
               gb3.Append("take");
               gb3.Append("me");
               gb3.Append("from");
@@ -170,7 +170,7 @@ namespace speechlibrary
               gb3.Append("agra");
               var g3 = new Grammar(gb3);
               speechEngine.LoadGrammar(g3);
-
+          */
               var gb4 = new GrammarBuilder { Culture = ri.Culture };
               gb4.Append("take");
               gb4.Append("me");
@@ -213,7 +213,33 @@ namespace speechlibrary
       {
           local_speechrecognized_delegate = speechrecognized_delegate;
       }
+      public void speechlibrray_stopaudio()
+      {
+          try
+          {
+              this.speechEngine.RecognizeAsyncCancel() ;
+          }
+          catch(System.InvalidOperationException e)
+          {
+              return;
 
+          }
+          return;
+      }
+
+       public  void speechlibrray_resumeaudio()
+      {
+          try
+          {
+              this.speechEngine.RecognizeAsync(RecognizeMode.Multiple);
+          }
+           catch( System.InvalidOperationException e)
+          {
+              return;
+          }
+          return;
+           
+      }
       public  void speechlibrray_windowclosing()
         {
            
@@ -241,7 +267,7 @@ namespace speechlibrary
 
          string[] sentence = new string[6] ;
          string command ="";
-          const double ConfidenceThreshold = 0.5;
+          const double ConfidenceThreshold = 0.40;
           
 
           if (e.Result.Confidence >= ConfidenceThreshold)
@@ -289,6 +315,11 @@ namespace speechlibrary
          
           GeocodeService.Location point = new GeocodeService.Location();
           GeocodeResponse geocodeResponse = GeocodeAddressGeocodeResponse(input);
+          if( null == geocodeResponse )
+          {
+              results = "Slow internet connection.Timeout Exception";
+              return null;
+          }
 
           if (geocodeResponse.Results.Length > 0)
               results = String.Format("Latitude: {0}\nLongitude: {1}",
@@ -341,9 +372,17 @@ namespace speechlibrary
           geocodeOptions.Filters = filters;
           geocodeRequest.Options = geocodeOptions;
 
-          // Make the geocode request
           GeocodeServiceClient geocodeService = new GeocodeServiceClient();
-          GeocodeResponse geocodeResponse = geocodeService.Geocode(geocodeRequest);
+          // Make the geocode request    
+          GeocodeResponse geocodeResponse ;
+          try
+          {
+              geocodeResponse = geocodeService.Geocode(geocodeRequest);
+          }
+          catch(System.TimeoutException e )
+          {
+              return null;
+          }
           return geocodeResponse;
       }
 

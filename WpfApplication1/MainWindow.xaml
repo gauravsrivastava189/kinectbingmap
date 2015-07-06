@@ -41,6 +41,7 @@
                 <Button x:Name="button_handgesture" Content="Start Hand Gesture" HorizontalAlignment="Left" Height="76" VerticalAlignment="Top" Width="114" Margin="681,0,0,0" IsCancel="True" Click="button_handgesture_Click" Visibility="Hidden"/>
                 <Image x:Name="image_engage" HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="424" Margin="440,311,0,0" Source ="justin_1.jpg" Opacity="0.7"/>
                 <Label x:Name="label_speakagain" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="417" Margin="325,87,0,0" Visibility="Hidden"/>
+                <Ellipse x:Name="ellipse_mute" Fill="#FF00C509" HorizontalAlignment="Left" Height="15" Stroke="Black" VerticalAlignment="Top" Width="16" Margin="33,10,0,0" RenderTransformOrigin="-28.171,0.726"/>
 
             </m:Map>
 

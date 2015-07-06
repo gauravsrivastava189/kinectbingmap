@@ -40,12 +40,14 @@ namespace WpfApplication1
         IList<Body> _bodies;
         
         MultiSourceFrameReader _reader;
-
+       
+       int toggle_flag = 1;
+       
         
         public KinectSensor kinectSensor = null;
         
         public kinectandspeech addgrammer = new kinectandspeech();
-
+        
         bool flag_engage = false;
         ulong trackingid = 0;
         string start;
@@ -104,6 +106,7 @@ namespace WpfApplication1
         {
             kinectSensor = KinectSensor.GetDefault();
             button_handgesture.Visibility = Visibility.Hidden;
+            System.Windows.Application.Current.MainWindow.WindowState = System.Windows.WindowState.Maximized;
             if (kinectSensor != null)
             {
                 kinectSensor.Open();
@@ -115,21 +118,22 @@ namespace WpfApplication1
             openvoiceinterface();
            
             
-        }     
-
+        }
+     
+       
        void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
             var reference = e.FrameReference.AcquireFrame();
             System.Windows.Point p;
             myMap.TryLocationToViewportPoint(myMap.Center, out p);
-            
-           
+
+            int main_body_lost = 0;
           
             using (var frame = reference.BodyFrameReference.AcquireFrame())
             {
                 if (frame != null)
                 {
-
+                    
 
                     _bodies = new Body[frame.BodyFrameSource.BodyCount];
                    
@@ -149,6 +153,8 @@ namespace WpfApplication1
                                     Joint lefthand = body.Joints[JointType.HandLeft];
                                     Joint shoulderRight = body.Joints[JointType.ShoulderRight];
 
+                                    
+
                                     if (righthand.Position.Y > shoulderRight.Position.Y && lefthand.Position.Y > shoulderRight.Position.Y && righthand.Position.Y < head.Position.Y && lefthand.Position.Y < head.Position.Y)
                                     {
                                         
@@ -158,6 +164,7 @@ namespace WpfApplication1
                                         test.Text = trackingid.ToString();
                                         image_engage.Visibility = Visibility.Hidden;
                                         speechSynthesizer.Speak("welcome to microsoft bing maps.");
+                                        
                                         break;
                                     }
 
@@ -169,8 +176,8 @@ namespace WpfApplication1
                     }
                     else
                     {
-                        int main_body_lost = 0;
-                        foreach (var main_body in _bodies)
+                        
+                        foreach ( var main_body in _bodies)
                         {
                           //  test1.Text = trackingid.ToString();
                             
@@ -187,18 +194,41 @@ namespace WpfApplication1
                                     Joint lefthand = main_body.Joints[JointType.HandLeft];
                                     Joint rightshoulder = main_body.Joints[JointType.ShoulderRight];
                                     Joint leftshoulder = main_body.Joints[JointType.ShoulderLeft];
-
-                                    
-
+                                    Joint spinemid = main_body.Joints[JointType.SpineMid];
+                                    Joint spinebase = main_body.Joints[JointType.SpineBase];                                                               
                                     //  test1.Text = righthand.Position.X.ToString();
                                     // test2.Text = lefthand.Position.X.ToString();
                                     //test1.Visibility = Visibility.Hidden;
                                     // test2.Visibility = Visibility.Hidden;
+                                    // testing purpose
+
+
+                                    if (righthand.Position.Y > spinebase.Position.Y && righthand.Position.Y < spinemid.Position.Y && righthand.Position.X > rightshoulder.Position.X + 0.150  &&  main_body.HandRightState == HandState.Closed)
+                                    {
+
+                                        addgrammer.speechlibrray_stopaudio();
+                                            toggle_flag = 2 ;
+                                            ellipse_mute.Fill = new SolidColorBrush(Colors.Red);
+                                            test.Text = toggle_flag.ToString();
+                                    }
+                                    if (lefthand.Position.Y > spinebase.Position.Y && lefthand.Position.Y < spinemid.Position.Y && lefthand.Position.X - leftshoulder.Position.X < -0.250)                                       
+                                        {
+                                            
+                                            addgrammer.speechlibrray_resumeaudio();
+                                            toggle_flag = 1;
+                                            test.Text = toggle_flag.ToString();
+                                            ellipse_mute.Fill = new SolidColorBrush(Colors.Green);
+                                        }
+
+                                   
+                                   
+                                    
+                                   
 
                                     // for moving fast 
                                     if (main_body.HandRightState == HandState.Closed && main_body.HandLeftState != HandState.Closed)
                                     {
-                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.200))
+                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.300))
                                         {
                                             p.X += 40;
                                         }
@@ -207,7 +237,8 @@ namespace WpfApplication1
                                         {
                                             p.Y -= 40;
                                         }
-                                        if (rightshoulder.Position.Y - righthand.Position.Y > 0.100 && rightshoulder.Position.Y - righthand.Position.Y < 0.35)
+                                       
+                                        if (rightshoulder.Position.Y - righthand.Position.Y > 0.100 && rightshoulder.Position.Y - righthand.Position.Y < 0.35 && righthand.Position.Y > spinebase.Position.Y )                                       
                                         {
                                             p.Y += 40;
                                         }
@@ -223,7 +254,7 @@ namespace WpfApplication1
                                             p.Y -= 40;
                                             p.X -= 40;
                                         }
-                                        if (leftshoulder.Position.Y - lefthand.Position.Y > 0.100 && lefthand.Position.X - leftshoulder.Position.X < -0.250)
+                                        if (leftshoulder.Position.Y - lefthand.Position.Y > 0.100 && lefthand.Position.X - leftshoulder.Position.X < -0.250 && lefthand.Position.Y > spinebase.Position.Y)
                                         {
                                             p.Y += 40;
                                             p.X -= 40;
@@ -233,7 +264,7 @@ namespace WpfApplication1
 
                                     if (main_body.HandRightState == HandState.Open && main_body.HandLeftState != HandState.Closed)
                                     {
-                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.200))
+                                        if (righthand.Position.X > (rightshoulder.Position.X + 0.300))
                                         {
                                             p.X += 25;
                                         }
@@ -242,7 +273,7 @@ namespace WpfApplication1
                                         {
                                             p.Y -= 25;
                                         }
-                                        if (rightshoulder.Position.Y - righthand.Position.Y > 0.100 && rightshoulder.Position.Y - righthand.Position.Y < 0.35)
+                                        if (rightshoulder.Position.Y - righthand.Position.Y > 0.100 && rightshoulder.Position.Y - righthand.Position.Y < 0.35 && righthand.Position.Y > spinebase.Position.Y)
                                         {
                                             p.Y += 25;
                                         }
@@ -258,7 +289,7 @@ namespace WpfApplication1
                                             p.Y -= 25;
                                             p.X -= 25;
                                         }
-                                        if (leftshoulder.Position.Y - lefthand.Position.Y > 0.100 && lefthand.Position.X - leftshoulder.Position.X < -0.250)
+                                        if (leftshoulder.Position.Y - lefthand.Position.Y > 0.100 && lefthand.Position.X - leftshoulder.Position.X < -0.250  && lefthand.Position.Y > spinebase.Position.Y )
                                         {
                                             p.Y += 25;
                                             p.X -= 20;
@@ -281,8 +312,8 @@ namespace WpfApplication1
                                         myMap.ZoomLevel -= 0.2;
 
                                     }
-
-                                    if (lefthand.Position.X - righthand.Position.X > 0.200)
+                                    // reset the map 
+                                    if (lefthand.Position.X - righthand.Position.X > 0.200 && lefthand.Position.Y >= rightshoulder.Position.Y && righthand.Position.Y >= rightshoulder.Position.Y )
                                     {
                                         Microsoft.Maps.MapControl.WPF.Location loc1 = new Microsoft.Maps.MapControl.WPF.Location();
                                         loc1.Latitude = 12.9667;
@@ -299,7 +330,9 @@ namespace WpfApplication1
                         if (main_body_lost == 0)
                         { 
                             flag_engage = false;
-                            image_engage.Visibility = Visibility.Visible;    
+                            image_engage.Visibility = Visibility.Visible;
+                           
+                           
                         }
                     }
                 }
@@ -349,6 +382,12 @@ namespace WpfApplication1
                         case "hide direction":
                             labelResults.Visibility = Visibility.Hidden;
                             break;
+
+                        case "bye":
+                            speechSynthesizer.Speak("thank you for using microsoft bing maps");
+                            System.Windows.Application.Current.MainWindow.WindowState = System.Windows.WindowState.Minimized;
+                            
+                            break;
  
                         case "change mode" :
                                   
@@ -370,9 +409,10 @@ namespace WpfApplication1
                        
                         break;
 
-                        case "remove all":
+                        case "remove":
                             myMap.Children.Clear();
                             add_item_over_map();
+                           
 
                                  break;
 
@@ -405,7 +445,7 @@ namespace WpfApplication1
                              break;
 
                         case "button mode" :
-                             debug_mode();
+                             //debug_mode();
                              break;
 
                         case "hide button":
@@ -437,9 +477,12 @@ namespace WpfApplication1
                 {
                    
 
-                    if ("takemefrom" == sentence[0] + sentence[1] + sentence[2])
+                    if ("takemefrom" == sentence[0] + sentence[1] + sentence[2]   )
                     {
-                        test.Text = " comming here ";
+                        
+                           // test_flag++;
+                     
+                        
                         input.Text = sentence[3];
                         input_des.Text = sentence[5];
                         test.Text = sentence[0] + sentence[1] + sentence[2] + sentence[3] + sentence[5];
@@ -448,6 +491,7 @@ namespace WpfApplication1
 
                     if ("showmethedirection" == sentence[0] + sentence[1] + sentence[2] + sentence[3])
                     {
+                        
                         labelResults.Visibility = Visibility.Visible;
                         labelResults.Content = GetDirections();
                         
@@ -477,8 +521,9 @@ namespace WpfApplication1
            myMap.Children.Add(zoomup);
            myMap.Children.Add(route);
            myMap.Children.Add(test);
-           myMap.Children.Add(getlocation);
-           myMap.Children.Add(image_engage); ;
+           myMap.Children.Add(getlocation);           
+          myMap.Children.Add(image_engage);
+          myMap.Children.Add(ellipse_mute);
 
 
 
@@ -600,6 +645,8 @@ namespace WpfApplication1
 
        public  void GetMyRoute()
         {
+           
+            
             clear_map();            // to remove the pushpins and routline existing on the map 
             string start_from;
             string end_to;
@@ -609,7 +656,8 @@ namespace WpfApplication1
             Microsoft.Maps.MapControl.WPF.Location loc1 = new Microsoft.Maps.MapControl.WPF.Location();
 
             loc1 = getgeocode.getlocation(input.Text, ref results);
-            
+          
+           
             if (results == "No Result Found")
             {
                 location.Text = results;
@@ -645,7 +693,7 @@ namespace WpfApplication1
             Microsoft.Maps.MapControl.WPF.Location loc = new Microsoft.Maps.MapControl.WPF.Location();
 
             loc = getgeocode.getlocation(input_des.Text, ref results);
-            
+           
             if (results == "No Result Found")
             {
                 location.Text = " No Result Found ";
@@ -704,8 +752,8 @@ namespace WpfApplication1
 
            if( string.IsNullOrEmpty(start))
             {
-                loc = direction.getlocation(input.Text, ref locationresult);         
-                 start = loc.Latitude.ToString() + "," + loc.Longitude.ToString();
+                loc = direction.getlocation(input.Text, ref locationresult);
+               start = loc.Latitude.ToString() + "," + loc.Longitude.ToString();
                  if (locationresult == "No Result Found")
                  {
                      location.Text = locationresult ;
@@ -715,13 +763,23 @@ namespace WpfApplication1
 
            if (string.IsNullOrEmpty(end))
            {
-               loc = direction.getlocation(input.Text, ref locationresult);
-               end = loc.Latitude.ToString() + "," + loc.Longitude.ToString();
+               try
+               {
+                    loc = direction.getlocation(input.Text, ref locationresult);
+                  
+                   end = loc.Latitude.ToString() + "," + loc.Longitude.ToString();
+               }
+               catch(NullReferenceException e)
+               {
+                   return "";
+               }
+               
                if (locationresult == "No Result Found")
                {
                    location.Text = locationresult;
                    return "";
                }
+
            }
 
            
